@@ -3,6 +3,7 @@
 #include "epoll.h"
 #include "requestData.h"
 #include "events.h"
+#include "mysql.h"
 
 
 #include <queue>
@@ -24,7 +25,7 @@ extern pthread_mutex_t qlock;
 extern priority_queue<mytimer*, vector<mytimer*>, timeCmp>myTimerQueue;
 
 
-
+connection_pool * m_connPool;
 
 
 
@@ -50,6 +51,17 @@ int main(int argc, char *argv[])
         perror("chdir error");
         exit(1);
     }
+
+
+    //数据库登录名,密码,库名
+    string users ="root";
+    string passwd = "123456";
+    string databasename = "yourdb";
+
+
+
+    m_connPool = connection_pool::GetInstance();
+    m_connPool->init("localhost", users, passwd, databasename, 3306, 10, 1);
 
 
 

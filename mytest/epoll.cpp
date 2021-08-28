@@ -2,7 +2,7 @@
 
 
 extern priority_queue<mytimer*, vector<mytimer*>, timeCmp>myTimerQueue;
-connection_pool * m_connPool;
+
 
 void epoll_run(int port)
 {
@@ -28,8 +28,6 @@ void epoll_run(int port)
         exit(1);
     }
 
-    m_connPool = connection_pool::GetInstance();
-    m_connPool->init("localhost", "root", "123456", "yourdb", 3306, 10, 1);
 
 
 
